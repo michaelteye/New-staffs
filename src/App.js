@@ -1,7 +1,10 @@
 import './App.css';
-import React, { useEffect, useState, useMemo } from 'react'
+import React, {useState} from 'react'
+import Title from './components/Title';
+import Modal from './components/Modal';
 
 function App(){
+  const [showModal,setShowModel] = useState(true)
   const [showEvents,setShowEvent] = useState(true)
   const [events, setEvents] = useState([
     {title: "the mass", description: "the 3rd world war", id:1},
@@ -18,14 +21,19 @@ function App(){
         return event.id !== id
       })
     })
+
  
     console.log(id)
   }
 
+  const handleClose = ()=>{
+    setShowModel(false)
+  }
 
 
   return (
     <div className='App'>
+      <Title title="Michael Kingdom Events"  />
       {showEvents && (
         <div>
            <button onClick={()=> setShowEvent(false)}>Hide event</button>
@@ -44,11 +52,23 @@ function App(){
 
      
       {showEvents && events.map((event,index)=>(
-        <div key={event.id}>
+        <React.Fragment key={event.id}>
           <h1>{index}-{event.title}</h1>
           <button onClick={()=>handleClick(event.id)}>Delete Events</button>
-        </div>
+        </React.Fragment>
       ))}
+      {showModal && <Modal handleClose={handleClose}>
+      <h2>Terms and Conditions</h2>
+      <p>
+      Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+       Numquam vero accusamus adipisci. Natus velit corrupti enim excepturi 
+       ab possimus voluptate perspiciatis laboriosam. Qui eligendi eius
+        iste ad neque illo! Impedit.
+      </p>
+      <a href='£'>find out more...</a>
+      </Modal>
+      }
+
     </div>
   )
 
