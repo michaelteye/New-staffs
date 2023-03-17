@@ -2,9 +2,11 @@ import './App.css';
 import React, {useState} from 'react'
 import Title from './components/Title';
 import Modal from './components/Modal';
+import Events from './components/EventList';
+import NewEventForm from './components/NewEventForm';
 
 function App(){
-  const [showModal,setShowModel] = useState(true)
+  const [showModal,setShowModel] = useState(false)
   const [showEvents,setShowEvent] = useState(true)
   const [events, setEvents] = useState([
     {title: "the mass", description: "the 3rd world war", id:1},
@@ -43,7 +45,7 @@ function App(){
       
       { !showEvents && (
         <div>
-           <button onClick={()=> setShowEvent(false)}>show event</button>
+           <button onClick={()=> setShowEvent(true)}>show event</button>
         </div>
 
       )}
@@ -51,23 +53,36 @@ function App(){
       
 
      
-      {showEvents && events.map((event,index)=>(
-        <React.Fragment key={event.id}>
-          <h1>{index}-{event.title}</h1>
-          <button onClick={()=>handleClick(event.id)}>Delete Events</button>
-        </React.Fragment>
-      ))}
-      {showModal && <Modal handleClose={handleClose}>
-      <h2>Terms and Conditions</h2>
-      <p>
-      Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-       Numquam vero accusamus adipisci. Natus velit corrupti enim excepturi 
-       ab possimus voluptate perspiciatis laboriosam. Qui eligendi eius
-        iste ad neque illo! Impedit.
-      </p>
-      <a href='£'>find out more...</a>
-      </Modal>
-      }
+      {showEvents && <Events events={events} handleClick={handleClick}/>}
+
+     
+
+      { !showModal && (
+        <div>
+          <button onClick={()=>setShowModel(true)}>show Model</button>
+        </div>
+
+      )}
+
+      { showModal && (
+        <div>
+          <button onClick={()=>setShowModel(false)}>hide Model</button>
+        </div>
+
+      )}
+      
+      <div>
+          {showModal && <Modal handleClose={handleClose} isSalesModal={true}>
+         <NewEventForm/>
+          <a href='#'>find out more...</a>
+          </Modal>
+          }
+          <div>
+            <button onClick={()=> setShowModel(true)}>Add New Events</button>
+          </div>
+
+      </div>
+     
 
     </div>
   )
@@ -75,6 +90,9 @@ function App(){
 
 
 }
+
+// don't let the model show by default when the page is load
+// a button upon click show the model.
 
 
 export default App;
