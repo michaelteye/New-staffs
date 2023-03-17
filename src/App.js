@@ -8,14 +8,15 @@ import NewEventForm from './components/NewEventForm';
 function App(){
   const [showModal,setShowModel] = useState(false)
   const [showEvents,setShowEvent] = useState(true)
-  const [events, setEvents] = useState([
-    {title: "the mass", description: "the 3rd world war", id:1},
-    {title: "Web development", description: "Building more dynamic systems", id:2},
-    {title: "3D animation", description: "building solid 3d animations using blender", id:3},
-    {title: "Data Analysis", description: "Sorting out varities of data", id:4}
+  const [events, setEvents] = useState([])
 
-  ])
-  console.log(showEvents);
+  const addEvent = (event)=>{
+    setEvents((prevEvents)=>{
+      return [...prevEvents, event]
+    })
+    setShowModel(false)
+  }
+
 
   const handleClick = (id) =>{
     setEvents((prevEvents)=>{
@@ -28,9 +29,6 @@ function App(){
     console.log(id)
   }
 
-  const handleClose = ()=>{
-    setShowModel(false)
-  }
 
 
   return (
@@ -72,8 +70,8 @@ function App(){
       )}
       
       <div>
-          {showModal && <Modal handleClose={handleClose} isSalesModal={true}>
-         <NewEventForm/>
+          {showModal && <Modal isSalesModal={true}>
+         <NewEventForm addEvent ={addEvent}/>
           <a href='#'>find out more...</a>
           </Modal>
           }

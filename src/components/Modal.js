@@ -1,6 +1,6 @@
 import './Modal.css'
 import React from 'react'
-export default function Modal({children, handleClose, isSalesModal }) {
+export default function Modal({children, isSalesModal }) {
   return (
     <div className='modal-backdrop'>
         <div className='modal' style={{
@@ -9,8 +9,6 @@ export default function Modal({children, handleClose, isSalesModal }) {
           textAlign:"center"
         }}>
             {children}
-            <button onClick={handleClose} className={isSalesModal ? "sales-btn":""}
-            >close</button>
         </div>
     </div>
   )
